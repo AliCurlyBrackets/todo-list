@@ -11,11 +11,21 @@ class TodoList extends Component
     use WithPagination ;
     public $Todo_inp ;
 
+    public $Alert = false ;
+    public $Alert_Message = '' ;
+
     public function Add_Todo(){
        Task::create([
             "task" => $this->Todo_inp ,
             "status" =>  1 ,
        ]) ;
+
+       $this->Alert = true  ;
+       $this->Alert_Message = "تم اضافه التاسك بنجاح" ;
+    }
+
+    public function close(){
+        $this->Alert = false  ;
     }
 
     public function complated($id){

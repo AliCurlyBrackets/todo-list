@@ -1,4 +1,14 @@
 <div>
+
+    @if ($Alert != false)
+        <div class="container mt-5">
+            <div class="alert alert-success text-center" role="alert">
+                <button type="button" class="btn-close" aria-label="Close" wire:click='close'></button>
+                {{ $Alert_Message }}
+            </div>
+        </div>
+    @endif
+
 	<div class="container">
 		<h2>TODO LIST</h2>
 		<h3>Add Item</h3>
