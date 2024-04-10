@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['prefix'=>"Todo-List"] , function(){
+    Route::view("/Your-Todo-List", 'componentpage.todolist')->middleware("auth")  ;
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
