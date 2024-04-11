@@ -12,20 +12,29 @@
 	<div class="container">
 		<h2>TODO LIST</h2>
 		<h3>Add Item</h3>
-		<p>
+		@can("add-task")
+        <p>
 			<input id="new-task" wire:model='Todo_inp' type="text">
                 @error('Todo_inp')
                     {{ $message }}
                 @enderror
             <button wire:click='Add_Todo'>Add</button>
 		</p>
+        @endcan
 
 		<h3>Todo</h3>
 		<ul id="incomplete-tasks">
             @foreach ($Tasks as $Task )
 			<li>
                 <input type="checkbox" wire:click='complated({{ $Task->id }})' @if($Task->status == 0) {{ "checked" }} @endif>
-                <label> {{ $Task->task }} </label><input type="text"><button class="edit">Edit</button><button class="delete" wire:click='Delete({{ $Task->id }})'>Delete</button></li>
+                <label> {{ $Task->task }} </label><input type="text">
+                    @can("update-task")
+                      <button class="edit">Edit</button>  
+                    @endcan
+                @can("delete-task")
+                    <button class="delete" wire:click='Delete({{ $Task->id }})'>Delete</button>
+                @endcan
+            </li>
             @endforeach
 		</ul>
 

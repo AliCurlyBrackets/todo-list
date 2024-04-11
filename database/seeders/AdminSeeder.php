@@ -13,10 +13,22 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+
+        // Admin Permission
+        $Admin = User::create([
             "name" => "admin" ,
             "email" => "admin@admin.com"  ,
             "password" => "rootadmin" ,
+            "role" => "super admin" , 
         ]) ;
+        $Admin->assignRole("super admin") ; 
+
+        $user = User::create([
+            "name" => "user" ,
+            "email" => "user@user.com"  ,
+            "password" => "@_Ali2.com" ,
+        ]) ;
+        $user->assignRole("user") ; 
+        
     }
 }
