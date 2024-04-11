@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Task;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,10 +19,14 @@ class TodoList extends Component
        Task::create([
             "task" => $this->Todo_inp ,
             "status" =>  1 ,
+            "user_id" => auth()->id() ,
        ]) ;
 
        $this->Alert = true  ;
        $this->Alert_Message = "تم اضافه التاسك بنجاح" ;
+
+       
+      
     }
 
     public function close(){
@@ -39,15 +44,25 @@ class TodoList extends Component
         $Delete_id->delete();
     }
 
+
+    public function EditeRoleUser($id){
+        dd($id) ; 
+    }
+
     public function render()
     {
-        $Tasks = Task::paginate(5);
+        $Tasks = Task::where("user_id" , auth()->id())->paginate(5);
 
-        $Tasks_complated = Task::where("status" ,0)->get() ;
+        $Tasks_complated = Task::where("status" ,0)
+        ->where("user_id" , auth()->id())
+        ->get() ;
+
+        $Users = User::all() ; 
 
         return view('livewire.todo-list',[
             "Tasks" => $Tasks  ,
             "Tasks_complated" => $Tasks_complated ,
+            "Users" => $Users , 
         ]);
     }
 }

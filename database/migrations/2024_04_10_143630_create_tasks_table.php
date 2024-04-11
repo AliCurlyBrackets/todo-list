@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("task") ;
             $table->string('status')->default(1) ;
+            $table->foreignId("user_id")->references("id")->on("users")->cascadeOnDelete() ; 
             $table->timestamps();
         });
     }

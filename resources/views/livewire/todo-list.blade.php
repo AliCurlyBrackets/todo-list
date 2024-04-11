@@ -48,4 +48,29 @@
         {{ $Tasks->links() }}
 	</div>
 
+    @can("show-users")
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th> # </th>
+                <th> UserName </th>
+                <th> Email </th>
+                <th> Role </th>
+            </tr>
+
+           @foreach ($Users as $User )
+                <tr>
+                 <td> {{$loop->iteration}} </td>
+                 <td> {{$User->name}} </td>
+                 <td> {{$User->email}} </td>
+                 <td> {{$User->role}} </td>
+            </tr>
+           @endforeach
+        
+        </table>
+    </div>
+    @endcan
+
+ 
+
 </div>
